@@ -1,0 +1,8 @@
+spring.jpa.show-sql: true
+spring.jpa.hibernate.ddl-auto: create
+
+spring.datasource:
+  driver_class_name: "com.mysql.jdbc.Driver"
+  url: "jdbc:mysql://localhost:3306/idde?autoReconnect=true&useSSL=false"
+  username: "root"
+  password: "feim1911"

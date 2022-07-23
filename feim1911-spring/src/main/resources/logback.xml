@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- appender with name STDOUT -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <!-- print format (using date, thread, level, logger name and message -->
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <appender name="ROLLINGLOG"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>myLogFile.log</file>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss} - %msg%n
+            </Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- start new log file every day -->
+            <fileNamePattern>myLogFile.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- also start new file when max size reached -->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <!-- named logger used by every class in our project -->
+    <logger name="edu.bbte.idde.feim1911" level="debug" additivity="false">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="ROLLINGLOG" />
+    </logger>
+
+    <!-- root logger (used by all else) -->
+    <root level="error">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="ROLLINGLOG" />
+    </root>
+
+</configuration>
